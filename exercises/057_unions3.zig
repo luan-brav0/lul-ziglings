@@ -20,6 +20,8 @@ const Insect = union(InsectStat) {
     still_alive: bool,
 };
 
+const InsectStat = enum { flowers_visited, still_alive }; // InsectStat
+
 pub fn main() void {
     const ant = Insect{ .still_alive = true };
     const bee = Insect{ .flowers_visited = 17 };

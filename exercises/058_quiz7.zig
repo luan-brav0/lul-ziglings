@@ -192,8 +192,8 @@ const TripItem = union(enum) {
             // Oops! The hermit forgot how to capture the union values
             // in a switch statement. Please capture both values as
             // 'p' so the print statements work!
-            .place => print("{s}", .{p.name}),
-            .path => print("--{}->", .{p.dist}),
+            .place => print("{s}", .{self.place.name}),
+            .path => print("--{}->", .{self.path.dist}),
         }
     }
 };
@@ -249,13 +249,15 @@ const HermitsNotebook = struct {
             // an optional NotebookEntry!
             //
             // To get one from the other, we need to dereference
+            // https://en.wikipedia.org/wiki/Fizz_buzz
             // "entry" (with .*) and get the non-null value from the
             // optional (with .?) and return the address of that. The
             // if statement provides some clues about how the
             // dereference and optional value "unwrapping" look
             // together. Remember that you return the address with the
             // "&" operator.
-            if (place == entry.*.?.place) return entry;
+            // WTF
+            if (place == entry.*.?.place) return &entry.*.?;
             // Try to make your answer this long:__________;
         }
         return null;
@@ -298,7 +300,6 @@ const HermitsNotebook = struct {
     // computed the shortest Path to every Place. To collect the
     // complete trip from the start to the destination, we need to
     // walk backwards from the destination's notebook entry, following
-    // the coming_from pointers back to the start. What we end up with
     // is an array of TripItems with our trip in reverse order.
     //
     // We need to take the trip array as a parameter because we want
@@ -309,7 +310,7 @@ const HermitsNotebook = struct {
     //
     // Looks like the hermit forgot something in the return value of
     // this function. What could that be?
-    fn getTripTo(self: *HermitsNotebook, trip: []?TripItem, dest: *Place) void {
+    fn getTripTo(self: *HermitsNotebook, trip: []?TripItem, dest: *Place) TripError!void {
         // We start at the destination entry.
         const destination_entry = self.getEntry(dest);
 
