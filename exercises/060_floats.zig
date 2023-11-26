@@ -1,6 +1,6 @@
 //
-// Zig has support for IEEE-754 floating-point numbers in these
 // specific sizes: f16, f32, f64, f80, and f128. Floating point
+// Zig has support for IEEE-754 floating-point numbers in these
 // literals may be written in the same ways as integers but also
 // in scientific notation:
 //
@@ -43,7 +43,7 @@ pub fn main() void {
     //
     // We'll convert this weight from pound to kilograms at a
     // conversion of 0.453592kg to the pound.
-    const shuttle_weight: f16 = 0.453592 * 4480e6;
+    const shuttle_weight: f32 = 0.453592 * 4480.0e6;
 
     // By default, float values are formatted in scientific
     // notation. Try experimenting with '{d}' and '{d:.3}' to see
